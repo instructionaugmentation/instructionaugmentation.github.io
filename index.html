@@ -113,12 +113,12 @@
         <div class="row">
                 <div class="col-md-4 col-md-offset-4 text-center">
                     <ul class="nav nav-pills nav-justified">
-                        <!-- li>
+                        <li>
                             <a href="https://arxiv.org/abs/2104.08212">
                             <image src="img/mip_paper_image.jpg" height="60px">
-                                <h4><strong>Paper</strong></h4>
+                                <h4><strong>Paper (TODO)</strong></h4>
                             </a>
-                        </li -->
+                        </li>
                         <!-- li>
                             <a href="https://youtu.be/i3uUGSko2zY">
                             <image src="img/youtube_icon.png" height="60px">
@@ -152,7 +152,16 @@
                     Abstract
                 </h3>
                 <p class="text-justify">
-TODO
+                    In recent years, much progress has been made in learning robotic manipulation policies that follow natural language instructions.
+Such methods typically learn from corpora of robot-language data that was either collected with specific tasks in mind or expensively re-labelled by humans with rich language descriptions in hindsight. 
+Recently, large-scale pretrained vision-language models (VLMs) like CLIP or ViLD have been applied to robotics for learning representations and scene descriptors.
+Can these pretrained models serve as automatic labelers for robot data, effectively importing Internet-scale knowledge into existing datasets to make them useful even for tasks that are not reflected in their ground truth annotations? 
+For example, if the original annotations contained simple task descriptions such as "pick up the apple", a pretrained VLM-based labeller could significantly expand the number of semantic concepts available in the data and introduce spatial concepts such as "the apple on the right side of the table" or alternative phrasings such as "the red colored fruit".
+To accomplish this, we introduce <strong>D</strong>ata-driven <strong>I</strong>nstruction <strong>A</strong>ugmentation for <strong>L</strong>anguage-conditioned control (DIAL): we utilize semi-supervised language labels leveraging the semantic understanding of CLIP to propagate knowledge onto large datasets of unlabelled demonstration data and then train language-conditioned policies on the augmented datasets.
+This method enables cheaper acquisition of useful language descriptions compared to expensive human labels, allowing for more efficient label coverage of large-scale datasets. 
+We apply DIAL to a challenging real-world robotic manipulation domain where 96.5% of the 80,000 demonstrations do not contain crowd-sourced language annotations.
+DIAL enables imitation learning policies to acquire new capabilities and generalize to 60 novel instructions unseen in the original dataset.
+
                 </p>
             </div>
         </div>
@@ -180,14 +189,22 @@ TODO
                     Approach
                 </h3>
                 <p class="text-justify">
-                TODO
+                DIAL consists of three stages:  (1) finetuning a VLM’s vision and language representation on a small offline dataset of trajectories with crowdsourced episode-level natural language description, (2) generating alternative instructions for a larger offline dataset of trajectories with the VLM, and (3) learning a language-conditioned policy viabehavior-cloning on this augmented offline data.
                 </p>
-<!--
                 <p style="text-align:center;">
-                    <image src="img/tasks.png"  class="img-responsive" height="600px">
+                    <image src="img/main_dial_figure.png"  class="img-responsive" height="600px">
                 </p>
--->
-<!--
+                <p class="text-justify">
+                After finetuning CLIP on the portion of the training dataset that contains crowd-sourced language instructions, we can automatically label the rest of the dataset without any additional human effort. In our setting, we finetune CLIP on crowd-sourced human labels for 2,800 demonstrations out of the total training dataseet of 80,000 teleoperated demonstrations.
+                </p>
+                <p style="text-align:center;">
+                    <image src="img/dial_animation.gif"  class="img-responsive" height="600px">
+                </p>
+                CLIP predicts language instructions by scoring candidate instructions sourced from the original crowd-sourced dataset as well as LLM caption proposals. While many of these candidate instructions might be erroenous or irrelevant, CLIP is often able to predict instruction labels describing skills or concepts not present in the original label.
+                <p style="text-align:center;">
+                    <image src="img/dial_labeling.gif"  class="img-responsive" height="600px">
+                </p>
+                <!--
 		<p style="test-align:center;">
 		    <image src="img/performance-summary.png"  class="image-responsive" width="100%">
 		</p>
@@ -210,11 +227,13 @@ TODO
 		<p class="text-justify">
 		TODO
 		</p>
-<!--
+
 		<p style="test-align:center;">
-		    <image src="img/collage_v2.gif"  class="image-responsive" width="100%">
+		    <image src="img/results_1.png"  class="image-responsive" width="100%">
 		</p>
--->
+        <p style="test-align:center;">
+            <image src="img/results_2.png"  class="image-responsive" width="100%">
+        </p>
 	    </div>
         </div>
             
