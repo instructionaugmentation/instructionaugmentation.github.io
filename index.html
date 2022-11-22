@@ -114,17 +114,17 @@
                 <div class="col-md-4 col-md-offset-4 text-center">
                     <ul class="nav nav-pills nav-justified">
                         <li>
-                            <a href="https://arxiv.org/abs/2104.08212">
+                            <a href="https://arxiv.org/abs/2211.11736">
                             <image src="img/mip_paper_image.jpg" height="60px">
-                                <h4><strong>Paper (TODO)</strong></h4>
+                                <h4><strong>Paper</strong></h4>
                             </a>
                         </li>
-                        <!-- li>
-                            <a href="https://youtu.be/i3uUGSko2zY">
+                        <li>
+                            <a href="https://youtu.be/lbaqjJJMAFg">
                             <image src="img/youtube_icon.png" height="60px">
-                                <h4><strong>Video</strong></h4>
+                                <h4><strong>Trajectory Videos</strong></h4>
                             </a>
-                        </li -->
+                        </li>
                         <!-- li>
                             <a href="https://ai.googleblog.com/2021/04/multi-task-robotic-reinforcement.html">
                             <image src="img/google-ai-blog-small.png" height="60px">
@@ -223,17 +223,28 @@ DIAL enables imitation learning policies to acquire new capabilities and general
             	<br>
                 <h3>
                     Results
-                </h3>
-		<p class="text-justify">
-		TODO
-		</p>
-
-		<p style="test-align:center;">
-		    <image src="img/results_1.png"  class="image-responsive" width="100%">
-		</p>
-        <p style="test-align:center;">
-            <image src="img/results_2.png"  class="image-responsive" width="100%">
-        </p>
+                </h3>       
+                <p class="text-justify">
+                    In our experiments, we investigate whether DIAL can improve policy performance on 60 novel evaluation tasks. We compare against different instruction augmentation methods, including methods that do not utilize visual context. To study how applicable DIAL is to various practical robot learning scenarios, we consider the setting where we have a fully labeled trajectory dataset as well as where we have only a partially labeled trajectory dataset that contains episodes with no corresponding language labels. We find that DIAL is able to successfully imbue offline datasets with additional semantic concepts not contained in the original instruction set, and demonstrate these capabilities on a large-scale real robotic manipulation setting.
+                </p>
+                <iframe width="750" height="500"
+src="https://www.youtube.com/embed/lbaqjJJMAFg">
+                </iframe>
+                <p class="text-justify">
+                    We perform over 1,300 real world robot policy evaluations on 60 novel instructions that we organize into three categories. "Spatial" tasks focus on instructions involving reasoning about spatial relationships, such as specifying an object’s initial position relative to other objects in the scene. "Rephrased" tasks are linguistic re-phrasings of the original tasks prompted during teleoperation, such as referring to sodas and chips by their colors instead of their brand name. "Semantic" tasks describe skills not contained in the original dataset, such as moving objects away from all other objects, since the original dataset only contains trajectories of moving objects towards other object. We find that DIAL outperforms instruction augmentation baselines across all three categories.
+                </p>
+                <p style="test-align:center;">
+                    <image src="img/results_1.png"  class="image-responsive" width="100%">
+                </p>
+                <p class="text-justify">
+                    The source trajectory dataset we utilize consists of a 5,600 trajectories dataset (Dataset A) with crowdsourced hindsight labels and a larger 80,000 trajectories dataset (Dataset B) that does not have any crowdsourced instructions. Even though Dataset B does not contain hindsight labels, it does contain structured task information that was used to guide human demonstrators as to which task should be collected (for example, “pick coke can”); we refer to these structured commands as foresight instructions. In the previous experiment, we considered all information available during both instruction augmentation as well as policy training. However, does DIAL still improve policy performance in settings where the source dataset is only partially labeled? We study the settings where foresight instructions are not available as well as the setting where crowd-sourced labels are not available. We find that in both cases DIAL significantly increases performance on novel evaluation instructions. This experiment is motivated by the setting where large amounts of unstructured trajectory data are available but hindsight labels are expensive to collect, such as robot play data collection.
+                </p>
+                <p style="test-align:center;">
+                    <image src="img/results_2.png"  class="image-responsive" width="100%">
+                </p>
+                <p class="text-justify">
+                    We also study the tradeoff between relabeled instruction accuracy, augmented dataset size, and downstream policy performance. Emperically, we find that the Finetuned CLIP model we utilize becomes very uncertain after the initial few hindsight label predictions; we propose two instruction prediction methods, and find that the more conservative approach is able to strike a balance between producing rich instruction augmentations while still providing accurate supervision signal for the control policy. For more details on this analysis and experimental results, please refer to the full paper.
+                </p>
 	    </div>
         </div>
             
@@ -246,7 +257,12 @@ DIAL enables imitation learning policies to acquire new capabilities and general
                 </h3>
                 <div class="form-group col-md-10 col-md-offset-1">
                     <textarea id="bibtex" class="form-control" readonly>
-</textarea>
+@inproceedings{xiao2022robotic,
+  title={Robotic Skill Acquistion via Instruction Augmentation with Vision-Language Models},
+  author={Xiao, Ted and Chan, Harris and Sermanet, Pierre and Wahid, Ayzaan and Brohan, Anthony and Hausman, Karol and Levine, Sergey and Tompson, Jonathan},
+  booktitle={Workshop on Language and Robotics at CoRL 2022},
+  year={2022}
+}</textarea>
                 </div>
             </div>
         </div>
@@ -257,7 +273,10 @@ DIAL enables imitation learning policies to acquire new capabilities and general
                     Acknowledgements
                 </h3>
                 <p class="text-justify">
-                TODO
+                The authors would like to thank Kanishka Rao, Debidatta Dwibedi, Pete Florence, Yevgen Chebotar, Fei Xia, and Corey Lynch for valuable feedback and discussions. We would also like to thank Emily Perez, Dee M,
+Clayton Tan, Jaspiar Singh, Jornell Quiambao, and Noah Brown for navigating the ever-changing
+challenges of data collection and robot policy evaluation at scale. Finally, we would like to thank the
+large team that built SayCan, upon which we develop DIAL.
                     <br><br>
                 The website template was borrowed from <a href="http://jonbarron.info/">Jon Barron</a>.
                 </p>
